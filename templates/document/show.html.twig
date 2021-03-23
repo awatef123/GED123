@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ Document.Type }}{% endblock %}
+
+{% block body %}
+<h>{{ Document.id }}</h>
+
+ <p>{{ Document.Type }}</p>
+ <p>{{ Document.Source }}</p>
+ <p>{{ Document.Objet }}</p>
+ <p>{{ Document.NumInterne }}</p>
+
+
+ <hr>
+ <a href="/afficherdocument">Retour</a>
+ <a href="/afficherdocument">imprimer</a>
+ <a href="/afficherdocument">télecharger</a>
+
+
+{% endblock %}

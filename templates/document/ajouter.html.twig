@@ -1,0 +1,37 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>
+    Ajouter un Document:
+</h1>
+    {{form_start(form)}}
+<div> 
+    {{form_widget(form.Type,{'attr':{'placeholder':'type du  document'}})}}
+</div>
+<div> 
+    {{form_widget(form.Source ,{'attr':{'placeholder':'source du document'}})}}
+</div>
+<div> 
+    {{form_widget(form.Objet,{'attr':{'placeholder':'objet du document'}})}}
+</div>
+<div> 
+    {{form_widget(form.NumInterne,{'attr':{'placeholder':'Num du document'}})}}
+</div>
+<div> 
+    {{form_label(form.DateDocumentation)}}
+    {{form_widget(form.DateDocumentation)}}
+
+</div>
+<div>
+    <input type="submit" name="" value="enregistrer" class="btn btn-primary">
+</div>
+
+
+
+
+
+
+
+
+    {%endblock%}

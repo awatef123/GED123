@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sourcedoc{% endblock %}
+
+{% block body %}
+    <h1>Sourcedoc</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sourcedoc.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ sourcedoc.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ sourcedoc.adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('sourcedoc_index') }}">back to list</a>
+
+    <a href="{{ path('sourcedoc_edit', {'id': sourcedoc.id}) }}">edit</a>
+
+    {{ include('sourcedoc/_delete_form.html.twig') }}
+{% endblock %}

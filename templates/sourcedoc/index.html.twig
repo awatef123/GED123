@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sourcedoc index{% endblock %}
+
+{% block body %}
+    <h1>Sourcedoc index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sourcedoc in sourcedocs %}
+            <tr>
+                <td>{{ sourcedoc.id }}</td>
+                <td>{{ sourcedoc.nom }}</td>
+                <td>{{ sourcedoc.adresse }}</td>
+                <td>
+                    <a href="{{ path('sourcedoc_show', {'id': sourcedoc.id}) }}">show</a>
+                    <a href="{{ path('sourcedoc_edit', {'id': sourcedoc.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('sourcedoc_new') }}">Create new</a>
+{% endblock %}

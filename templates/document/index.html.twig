@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} AjouterDocument {% endblock %}
+
+{% block body %}
+
+<h1>Ajouter Document</h1>
+<ul>
+
+  <table id="Document" class="table table-striped">
+      <thead>
+    <tr> 
+        <th>Type</th>
+        <th>Source</th>
+        <th>Objet</th>
+        <th>NumInterne</th>
+
+    </tr>
+    </thead>
+        {% for Document in Document %}
+        <tr>
+    <td>  {{Document.Type|e }}               </td> 
+    <td>  {{Document.Source|e }}             </td>
+    <td>  {{ Document.Objet|e }}             </td>
+    <td>  {{Document.NumInterne|e }}          </td>
+    
+    <td> <a href="/document/{{ Document.id }}" class="btn btn-dark">Détails</a>
+      <a href="/modifierdocument/{{ Document.id }}" class="btn btn-dark">Modifier</a>
+        {% if is_granted('ROLE_ADMIN') %}
+    <a href="/deletedocument/{{ Document.id }}" class="btn btn-danger" 
+              onclick="return confirm('Etes-vous sûr de supprimer cet article?');">Supprimer</a>
+            </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+</ul>
+{%endblock%}

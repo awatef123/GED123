@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sourcedoc{% endblock %}
+
+{% block body %}
+    <h1>Create new Sourcedoc</h1>
+
+    {{ include('sourcedoc/_form.html.twig') }}
+
+    <a href="{{ path('sourcedoc_index') }}">back to list</a>
+{% endblock %}
