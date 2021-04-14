@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Détails Dossier {% endblock %}
+
+{% block body %}
+
+<h1>Ajouter Dossier</h1>
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ <table id="Dossier" class="table table-striped">
+     <thead>
+   <tr> 
+        <th> Nom </th> 
+
+
+    </tr>
+    </thead>
+
+        {% for Dossier in Dossier %}
+        <tr>
+        <td>  {{Dossier.Nom|e }}   </td>
+  
+   
+    
+    <td> <a href="/afficherdossier/{{ Dossier.id }}" class="btn btn-dark">Détails</a>
+      <a href="/modifierdossier/{{ Dossiert.id }}" class="btn btn-dark">Modifier</a>
+        {% if is_granted('ROLE_ADMIN') %}
+    <a href="/deletedossier/{{ Dossier.id }}" class="btn btn-danger" 
+              onclick="return confirm('Etes-vous sûr de supprimer cet article?');">Supprimer</a>
+            </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+</ul>
+{%endblock%}

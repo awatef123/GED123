@@ -9,8 +9,8 @@
   <th>Nom </th>
   <th>Prenom </th>
   <th>Email </th>
+    <th>Telephone </th>
   <th>Role</th>
-  <th>Telephone </th>
 
 <tbody>
    {% for user in users %}
@@ -18,16 +18,11 @@
      <td>{{user.nom}} </td>
      <td>{{user.prenom}} </td>
      <td>{{user.email}}</td>
-     <td>{% for user in users %}
-        
+    <td>{{user.telephone}} </td>
 
-        
-     {%endfor%}
-     </td>
-     <td>{{user.telephone}} </td>
+    <td> {{user.roles[0]}}</td>
 
-     <td></td>
-
+    
 
      </tr>
    {% else %}

@@ -1,37 +1,28 @@
-
 {% extends 'base.html.twig' %}
 
+{% block title %}Ajouter Article{% endblock %}
+ 
 {% block body %}
-<h1>
-    Ajouter un Document:
-</h1>
-    {{form_start(form)}}
-<div> 
-    {{form_widget(form.Type,{'attr':{'placeholder':'type du  document'}})}}
-</div>
-<div> 
-    {{form_widget(form.Source ,{'attr':{'placeholder':'source du document'}})}}
-</div>
-<div> 
-    {{form_widget(form.Objet,{'attr':{'placeholder':'objet du document'}})}}
-</div>
-<div> 
-    {{form_widget(form.NumInterne,{'attr':{'placeholder':'Num du document'}})}}
-</div>
-<div> 
-    {{form_label(form.DateDocumentation)}}
-    {{form_widget(form.DateDocumentation)}}
-
-</div>
-<div>
-    <input type="submit" name="" value="enregistrer" class="btn btn-primary">
-</div>
 
 
+<div class="container-fluid">
+<div class="container">
+<h1>  Ajouter document </h1>
 
+	<div class="formBox">
 
+	<div class="row">
+ {{ form_start(form) }}
 
+ {{ form_widget(form) }}
 
-
-
-    {%endblock%}
+  <button type="submit" class="btn btn-success">Créer</button>
+  
+ {{ form_end(form) }}
+ {{form_row(form.imageFile)}}
+ </div>
+	</div>
+ 	</div>
+	</div>
+ 
+    {% endblock %}

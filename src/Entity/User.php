@@ -34,11 +34,10 @@ class User extends BaseUser
      */
     private $telephone;
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
 
     public function getNom(): ?string
     {
@@ -75,4 +74,6 @@ class User extends BaseUser
 
         return $this;
     }
+
+    
 }

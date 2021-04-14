@@ -8,8 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
-* @Route("/admin", name="admin")
+ * @IsGranted("ROLE_ADMIN")
+ * @Route("/admin", name="admin")
 */
 class AdminController extends AbstractController
 {

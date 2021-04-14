@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title%} Liste des Articles par prix{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+
+<div class="form-row align-items-end" >
+ <div class="col">
+   {{ form_row(form.minDate) }}
+ </div>
+ <div class="col">
+   {{ form_row(form.maxDate) }}
+ </div>
+
+  <div class="col">
+   <div class="form-group">
+      <button type="submit" class="btn btn-success">Rechercher</button>
+    </div>
+ </div>
+</div>
+ {{ form_end(form) }}
+
+ {% if Document %}
+    <table id="Document" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Objet</th>
+          <th>NumInterne</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for Document in Document %}
+          <tr>
+            <td>{{ Document.nom }}</td>
+            <td>{{ Document.Type }}</td>
+            <td>{{ Document.Objet }}</td>
+            <td>{{ Document.NumInterne}}</td>
+
+
+           <td>
+              <a href="/Document/{{ Document.id }}" class="btn btn-dark">Détails</a>
+              <a href="/Document/edit/{{ Document.id }}" class="btn btn-dark">Modifier</a>
+             {# <a href="/Document/delete/{{ Document.id }}" class="btn btn-danger" #}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Aucun articles</p>
+  {% endif %} 
+{% endblock %}

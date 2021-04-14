@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ Document.Type }}{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<h>{{ Document.id }}</h>
-
- <p>{{ Document.Type }}</p>
- <p>{{ Document.Source }}</p>
- <p>{{ Document.Objet }}</p>
- <p>{{ Document.NumInterne }}</p>
+<h1>  Détail document </h1>
+Nom : {{ Document.Nom}}
+ <p>Type :{{ Document.Type }}</p>
+ <p>Objet: {{ Document.Objet }}</p>
+ <p>source:{{ Document.source.libelle }}<p>
+ <p>NumInterne: {{ Document.NumInterne }}</p> 
+ <p>Date documentation: {{ Document.DateDocumentation|date("m/d/Y") }}</p> 
 
 
  <hr>
  <a href="/afficherdocument">Retour</a>
  <a href="/afficherdocument">imprimer</a>
  <a href="/afficherdocument">télecharger</a>
+<<div class="grix xs2 sm3 gutter-0 card">
+		<div class="grix xs2 sm3 gutter-0 card">
+			<div class="col-xs2 col-sm3">
+				<h2>Liste des commentaires</h2>
+                {%for Comments in Document.Comments%}
+                <p> Publié par {{Comments.nickname}} le {{Comments.createdAt|date("d/m/y H:i")}} </p>
+            
+                <div>  {{Comments.content|raw}}</div>
+			{%endfor%}
+                <p> <a href="#ajout-commentaire" {#data-reply data-id="{{Comments.id}#}" class="btn primary press"> Répondre </a> </p>
+            
+		
 
+			   
+
+                </div>
+                <div class="grix xs2 sm3 gutter-0 card">
+			<div class="col-xs2 col-sm3" id="ajout-commentaire">
+				<h2>Ajouter commentaires</h2>
+                {{form(Comments)}}
+                </div>
+                </div>
+
+{% block javascripts %}
+	<script>
+		
+			// On met un écouteur d'évènements sur tous les boutons répondre
+			Document.querySelectorAll("[data-reply]").forEach(element => {
+				element.addEventListener("click", function(){
+					Document.querySelector("#comments_parentid").value = this.dataset.id;
+				});
+			});
+		}
+		let caroulix = new Caroulix('#carousel');
+		let modal = new Modal('#modale-contact');
+	</script>
+{% endblock %}
 
 {% endblock %}
