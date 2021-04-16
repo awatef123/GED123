@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Date ;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +27,9 @@ use App\Repository\DocumentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\FilterSearch ;
 use App\Form\FilterSearchType ;
-
 use App\Form\CommentsType ;
-
+use App\Entity\Type;
+use App\Form\TypeDocType ;
 
 
 class DocumentController extends AbstractController
@@ -70,12 +72,10 @@ class DocumentController extends AbstractController
              $form = $this->createForm(DocumentType::class, $Document);
              $form->handleRequest($request);
              if($form->isSubmitted()){
-                $entityManager=$this->getDoctrine()->getManager();
-                $filename=md5(uniqid()).'.'. $file->guessExtension();
-                $file->move ($this->getParameter('brochure_directory'),
-                $filename
-             );
-             $etd->setimageFile($filename);
+               $file=$Document->getImage();
+               $filename=md5(uniqid()).'.'.$file->guessExtension();
+                 $entityManager=$this->getDoctrine()->getManager();
+                 $Document->setImage($filename);
                  $entityManager->persist($Document);
                  $entityManager->flush($Document);
     
@@ -180,7 +180,7 @@ class DocumentController extends AbstractController
         $form = $this->createFormBuilder($Document)
         ->add('Nom', TextType::class)
 
-          ->add('Type', TextType::class)
+          ->add('Type', Type::class)
           ->add('Objet', TextType::class)
           ->add('NumInterne', TextType::class)
 
@@ -278,6 +278,27 @@ class DocumentController extends AbstractController
     }
 
     return  $this->render('Document/filtre.html.twig',[ 'form' =>$form->createView(), 'Document' => $Document]);  
+  }
+
+  /**
+     * @Route("/type", name="new_type")
+     * Method({"GET", "POST"})
+     */
+    public function newType(Request $request) {
+      $Type = new Type;
+    
+      $form = $this->createForm(TypeDocType::class,$Type);
+
+      $form->handleRequest($request);
+
+      if($form->isSubmitted() && $form->isValid()) {
+        $Document = $form->getData();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($Type);
+        $entityManager->flush();
+      }
+      return $this->render('document/newType.html.twig',['form' => $form->createView()]);
   }
   
 

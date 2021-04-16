@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Entity;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+
+
 
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
- * @Vich\Uploadable
+ *
  */
 class Document
 {
@@ -28,13 +27,7 @@ class Document
      */
     private  $Nom;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * 
-     * 
-     */
-    private  $Type;
-
+   
 
 
     /**
@@ -58,34 +51,23 @@ class Document
     private $source;
 
   
+  /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="Document")
+     */
+    private $type;
 
     
+
     
 
-    /**
+/**
      * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Document")
      */
     private $comments;
-    
-
-     /**
+   /**
      * @ORM\Column(type="string", length=255)
-     * @var string
      */
     private $image;
-
-    /**
-     * @Assert\NotBlank(message="please,upload the product brochure as a pdf file.")
-     * @Vich\UploadableField(mapping="Document", fileNameProperty="image")
-     * @Assert\File(mimeTypes={"application/pdf"})
-     * @var File
-     */
-    private $imageFile;
-
- 
-
-
-
    
     public function __construct()
     {
@@ -107,17 +89,7 @@ class Document
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->Type;
-    }
-
-    public function setType(string $Type): self
-    {
-        $this->Type = $Type;
-
-        return $this;
-    }
+   
 
  
 
@@ -198,37 +170,25 @@ class Document
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+   
+    public function getType(): ?Type
     {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
+        return $this->type;
     }
 
-    public function getImageFile()
+    public function setType( Type $type): self
     {
-        return $this->imageFile;
+        $this->type = $type;
+
+        return $this;
     }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-
-
-
-
+public function getImage(){
+    return $this->image;
+}
+public function setImage ($image)
+{
+    $this->image=$image;
+    return $this;
+}
    
 }

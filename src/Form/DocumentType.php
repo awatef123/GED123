@@ -8,7 +8,8 @@ use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use App\Entity\Type;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 class DocumentType extends AbstractType
@@ -17,14 +18,20 @@ class DocumentType extends AbstractType
     {
         $builder
             -> add('Nom')
-            ->add('Type')
             ->add('Source',EntityType::class,['class' => Source::class,
             'choice_label' => 'libelle'  ])
+            
+
+            ->add('type',EntityType::class,['class' => Type::class,
+            'choice_label' => 'libelle' 
+            
+             ])
+
+
             ->add('Objet')
             ->add('NumInterne')
             ->add('DateDocumentation')
-            ->add('imageFile',VichImageType::class)
-
+            ->add('image',FileType::class)
           ;
     }
 
